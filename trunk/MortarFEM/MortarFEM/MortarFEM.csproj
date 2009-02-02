@@ -1,0 +1,192 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FA79E0A1-EC67-4897-BC06-5889D5D9DDDD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MortarFEM</RootNamespace>
+    <AssemblyName>MortarFEM</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tao.OpenGl, Version=2.1.0.4, Culture=neutral, PublicKeyToken=1ca010269a4501ef" />
+    <Reference Include="Tao.Platform.Windows, Version=1.0.0.4, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dialogs\BoundaryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BoundaryDialog.Designer.cs">
+      <DependentUpon>BoundaryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\InsideBoundaryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\InsideBoundaryDialog.Designer.cs">
+      <DependentUpon>InsideBoundaryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SaveNodesValueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SaveNodesValueDialog.Designer.cs">
+      <DependentUpon>SaveNodesValueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SubDomainDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SubDomainDialog.Designer.cs">
+      <DependentUpon>SubDomainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dialogs\BoundaryDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BoundaryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\InsideBoundaryDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InsideBoundaryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SaveNodesValueDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SaveNodesValueDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SubDomainDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SubDomainDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Results.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Results.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SbB\FEM\TriangulationLib\TriangleExe.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TriangleExe.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Results.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Results.Designer.cs">
+      <DependentUpon>Results.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SbBGL\DomainGL.cs" />
+    <Compile Include="SbBGL\FEMGLtools.cs" />
+    <Compile Include="SbBGL\GLDraw.cs" />
+    <Compile Include="SbBGL\Graphic.cs" />
+    <Compile Include="SbBGL\ResultGradient.cs" />
+    <Compile Include="SbBGL\TriangulatedDomain.cs" />
+    <Compile Include="SbBGL\VisualTransmission.cs" />
+    <Compile Include="SbB\Algebra\Constants.cs" />
+    <Compile Include="SbB\Algebra\LineGauss.cs" />
+    <Compile Include="SbB\Algebra\Matrix.cs" />
+    <Compile Include="SbB\Algebra\Vector.cs" />
+    <Compile Include="SbB\Collections\Boundaries.cs" />
+    <Compile Include="SbB\Collections\Boundary.cs" />
+    <Compile Include="SbB\Collections\BoundaryClass.cs" />
+    <Compile Include="SbB\Collections\Triangles.cs" />
+    <Compile Include="SbB\Collections\Vertexes.cs" />
+    <Compile Include="SbB\Constants.cs" />
+    <Compile Include="SbB\FEM\Constants.cs" />
+    <Compile Include="SbB\FEM\FEM.cs" />
+    <Compile Include="SbB\FEM\FEMData.cs" />
+    <Compile Include="SbB\FEM\GlobalSystem.cs" />
+    <Compile Include="SbB\FEM\LinearFEM.cs" />
+    <Compile Include="SbB\FEM\LinearFEMData.cs" />
+    <Compile Include="SbB\FEM\LinearMortar.cs" />
+    <Compile Include="SbB\FEM\Mortar.cs" />
+    <Compile Include="SbB\FEM\Manager.cs" />
+    <Compile Include="SbB\FEM\QuadraticFEM.cs" />
+    <Compile Include="SbB\FEM\QuadraticFEMData.cs" />
+    <Compile Include="SbB\FEM\QuadraticMortar.cs" />
+    <Compile Include="SbB\FEM\TriangulationLib\ExeTriangulation.cs" />
+    <Compile Include="SbB\FEM\TriangulationLib\TriangleExe.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TriangleExe.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SbB\FEM\TriangulationLib\Triangulation.cs" />
+    <Compile Include="SbB\Geometry\Constants.cs" />
+    <Compile Include="SbB\Geometry\Domain.cs" />
+    <Compile Include="SbB\Geometry\Edge.cs" />
+    <Compile Include="SbB\Geometry\InsideBoundary.cs" />
+    <Compile Include="SbB\Geometry\LinearEdge.cs" />
+    <Compile Include="SbB\Geometry\LinearTriangle.cs" />
+    <Compile Include="SbB\Geometry\Polygon.cs" />
+    <Compile Include="SbB\Geometry\QuadraticEdge.cs" />
+    <Compile Include="SbB\Geometry\QuadraticTriangle.cs" />
+    <Compile Include="SbB\Geometry\SubDomain.cs" />
+    <Compile Include="SbB\Geometry\Triangle.cs" />
+    <Compile Include="SbB\Geometry\Vertex.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SbB\FEM\TriangulationLib\triangle.exe" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
