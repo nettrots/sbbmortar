@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MortarFEM", "MortarFEM\MortarFEM.csproj", "{FA79E0A1-EC67-4897-BC06-5889D5D9DDDD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA79E0A1-EC67-4897-BC06-5889D5D9DDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA79E0A1-EC67-4897-BC06-5889D5D9DDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA79E0A1-EC67-4897-BC06-5889D5D9DDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA79E0A1-EC67-4897-BC06-5889D5D9DDDD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
