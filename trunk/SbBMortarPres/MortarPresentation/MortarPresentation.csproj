@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B2D9157B-8FD0-4A26-A9A4-E383B303445A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MortarPresentation</RootNamespace>
+    <AssemblyName>MortarPresentation</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Tao.OpenGl, Version=2.1.0.4, Culture=neutral, PublicKeyToken=1ca010269a4501ef, processorArchitecture=MSIL" />
+    <Reference Include="Tao.Platform.Windows, Version=1.0.0.4, Culture=neutral, PublicKeyToken=701104b2da67a104, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dialogs\BoundaryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BoundaryDialog.Designer.cs">
+      <DependentUpon>BoundaryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DrawGraphics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DrawGraphics.Designer.cs">
+      <DependentUpon>DrawGraphics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DrawingElementsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DrawingElementsDialog.Designer.cs">
+      <DependentUpon>DrawingElementsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\InsideBoundaryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\InsideBoundaryDialog.Designer.cs">
+      <DependentUpon>InsideBoundaryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Results.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Results.designer.cs">
+      <DependentUpon>Results.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SaveNodesValueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SaveNodesValueDialog.Designer.cs">
+      <DependentUpon>SaveNodesValueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SolveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SolveForm.Designer.cs">
+      <DependentUpon>SolveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SubDomainDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SubDomainDialog.Designer.cs">
+      <DependentUpon>SubDomainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SbBDrawer\ElementsList.cs" />
+    <Compile Include="SbBDrawer\glDomain.cs" />
+    <Compile Include="SbBDrawer\glGraphic.cs" />
+    <Compile Include="SbBDrawer\glGrid.cs" />
+    <Compile Include="SbBDrawer\glTriangulation.cs" />
+    <Compile Include="SbBMortar\BoundaryClass.cs" />
+    <Compile Include="SbBMortar\Constants.cs" />
+    <Compile Include="SbBMortar\Domain.cs" />
+    <Compile Include="SbBMortar\Edge.cs" />
+    <Compile Include="SbBMortar\Element.cs" />
+    <Compile Include="SbBMortar\FEMEdge.cs" />
+    <Compile Include="SbBMortar\GaussianQuadrature.cs" />
+    <Compile Include="SbBMortar\GaussPont.cs" />
+    <Compile Include="SbBMortar\Integration.cs" />
+    <Compile Include="SbBMortar\LinearEdge.cs" />
+    <Compile Include="SbBMortar\LinearMortar.cs" />
+    <Compile Include="SbBMortar\LinearTriangle.cs" />
+    <Compile Include="SbBMortar\LinialTriangleTriangulation.cs" />
+    <Compile Include="SbBMortar\Matrix.cs" />
+    <Compile Include="SbBMortar\Mortar.cs" />
+    <Compile Include="SbBMortar\MortarSide.cs" />
+    <Compile Include="SbBMortar\Polygon.cs" />
+    <Compile Include="SbBDrawer\DrawingElement.cs" />
+    <Compile Include="MortarPresentation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MortarPresentation.Designer.cs">
+      <DependentUpon>MortarPresentation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SbBDrawer\ExampleElement.cs" />
+    <Compile Include="SbBDrawer\glElement.cs" />
+    <Compile Include="SbBDrawer\GlMortar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SbBDrawer\GlMortar.Designer.cs">
+      <DependentUpon>GlMortar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SbBMortar\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dialogs\BoundaryDialog.resx">
+      <DependentUpon>BoundaryDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DrawGraphics.resx">
+      <DependentUpon>DrawGraphics.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DrawingElementsDialog.resx">
+      <DependentUpon>DrawingElementsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\InsideBoundaryDialog.resx">
+      <DependentUpon>InsideBoundaryDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Results.resx">
+      <DependentUpon>Results.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SaveNodesValueDialog.resx">
+      <DependentUpon>SaveNodesValueDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SolveForm.resx">
+      <DependentUpon>SolveForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SubDomainDialog.resx">
+      <DependentUpon>SubDomainDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MortarPresentation.resx">
+      <DependentUpon>MortarPresentation.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SbBDrawer\GlMortar.resx">
+      <DependentUpon>GlMortar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SbBMortar\TriangleExe.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TriangleExe.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SbBDrawer\SbBDrawer.cs" />
+    <Compile Include="SbBDrawer\SbBglDrawer.cs" />
+    <Compile Include="SbBMortar\QuadraticEdge.cs" />
+    <Compile Include="SbBMortar\QuadraticTriangle.cs" />
+    <Compile Include="SbBMortar\QuadraticTriangleTriangulation.cs" />
+    <Compile Include="SbBMortar\Solver.cs" />
+    <Compile Include="SbBMortar\SubDomain.cs" />
+    <Compile Include="SbBMortar\Triangle.cs" />
+    <Compile Include="SbBMortar\TriangleExe.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TriangleExe.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SbBMortar\Triangulation.cs" />
+    <Compile Include="SbBMortar\Vector.cs" />
+    <Compile Include="SbBMortar\Vertex.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SbBMortar\triangle.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SbBMortar\readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
