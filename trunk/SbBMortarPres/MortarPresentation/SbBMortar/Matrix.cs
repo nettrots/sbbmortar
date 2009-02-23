@@ -1,64 +1,24 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SbBMortar.SbB
 {
-    public class Matrix
+    public class Matrix: List<Vector>
     {
-        private ArrayList vectors = new ArrayList();
-
-        public Vector this[int index]
-        {
-            get { return (Vector)vectors[index]; }
-            set
-            {
-                if (((Vector)vectors[index]).Length != value.Length)
-                    throw new Exception("Can't add change this row");
-                vectors[index] = value;
-            }
-        }
-        public PairInt Size
-        {
-            get 
-            {
-                if (vectors.Count == 0)
-                    return new PairInt(0, 0);
-                return new PairInt(vectors.Count, ((Vector)vectors[0]).Length);
-            }
-            set 
-            {
-                if (value.m < 0 || value.n < 0)
-                    throw new ArgumentOutOfRangeException();
-                for (int i = 0; i < vectors.Count; i++)
-                    ((Vector)vectors[i]).Length = value.n;
-                for (int i = vectors.Count; i <= value.m; i++)
-                    vectors.Add(new Vector(value.n));
-                for (int i = vectors.Count; i > value.m; i--)
-                    vectors.RemoveAt(i - 1);
-            }
-        }
-
+        #region Constructors
         public Matrix() {}
-        public Matrix(int m, int n): this(m, n, 0) {}
-        public Matrix(int m, int n, double element)
+        public Matrix(int m, int n) : this(m, n, 0.0) {}
+        public Matrix(int m, int n, double element): base(new Vector[m])
         {
             for (int i = 0; i < m; i++)
-                vectors.Add(new Vector(n, element));
+                this[i] = new Vector(n, element);
         }
-        public Matrix(PairInt dim): this(dim, 0) {}
-        public Matrix(PairInt dim, double element): this(dim.m, dim.n, element) {}
-        public Matrix(Vector[] array)
-        {
-            int m = array.Length;
-            if (m == 0) return;
-            int n = array[0].Length;
-            for (int i = 0; i < m; i++)
-                if (array[i].Length != n)
-                    throw new Exception("Can't create this matrix");
-                else vectors.Add(array[i]);
-        }
-        public Matrix(Vector vector): this(new Vector[] { vector }) {}
-        public Matrix(double[][] elements)
+        public Matrix(PairInt dim) : this(dim, 0.0) { }
+        public Matrix(PairInt dim, double element) : this(dim.m, dim.n, element) {}
+        public Matrix(Vector[] array): base(array) {}
+        public Matrix(Vector vector) : this(new Vector[] {vector}) {}
+        public Matrix(double[][] elements): base(new Vector[elements.Length]) 
         {
             int m = elements.Length;
             if (m == 0) return;
@@ -66,15 +26,40 @@ namespace SbBMortar.SbB
             for (int i = 0; i < m; i++)
                 if (elements[i].Length != n)
                     throw new Exception("Can't create this matrix");
-                else vectors.Add(new Vector(elements[i]));
+                else this[i] = new Vector(elements[i]);
         }
+        #endregion
 
+        #region Properties
+        public PairInt Size
+        {
+            get 
+            {
+                if (this.Count == 0)
+                    return new PairInt(0, 0);
+                return new PairInt(this.Count, (this[0]).Length);
+            }
+            set 
+            {
+                if (value.m < 0 || value.n < 0)
+                    throw new ArgumentOutOfRangeException();
+                for (int i = 0; i < this.Count; i++)
+                    (this[i]).Length = value.n;
+                for (int i = this.Count; i <= value.m; i++)
+                    this.Add(new Vector(value.n));
+                for (int i = this.Count; i > value.m; i--)
+                    this.RemoveAt(i - 1);
+            }
+        }
+        #endregion
+
+        #region Operators
         public static Matrix operator +(Matrix mLeft, Matrix mRight)
         {
             if ((mLeft.Size.m != mRight.Size.m) || (mLeft.Size.n != mRight.Size.n))
                 throw new ArgumentOutOfRangeException();
             Matrix m = new Matrix(mLeft.Size);
-            for (int i = 0; i < mLeft.vectors.Count; i++)
+            for (int i = 0; i < mLeft.Count; i++)
                 m[i] = mLeft[i] + mRight[i];
             return m;
         }
@@ -83,7 +68,7 @@ namespace SbBMortar.SbB
             if ((mLeft.Size.m != mRight.Size.m) || (mLeft.Size.n != mRight.Size.n))
                 throw new ArgumentOutOfRangeException();
             Matrix m = new Matrix(mLeft.Size);
-            for (int i = 0; i < mLeft.vectors.Count; i++)
+            for (int i = 0; i < mLeft.Count; i++)
                 m[i] = mLeft[i] - mRight[i];
             return m;
         }
@@ -94,7 +79,7 @@ namespace SbBMortar.SbB
             Matrix m = new Matrix(new PairInt(mLeft.Size.m, mRight.Size.n));
             for (int i = 0; i < m.Size.m; i++)
                 for (int j = 0; j < m.Size.n; j++)
-                    m[i][j] = mLeft[i] * mRight.column(j);
+                    m[i][j] = mLeft[i] * mRight.Column(j);
             return m;
         }
         public static Vector operator *(Vector vLeft, Matrix mRight)
@@ -103,7 +88,7 @@ namespace SbBMortar.SbB
                 throw new ArgumentOutOfRangeException();
             Vector v = new Vector(mRight.Size.n);
             for (int i = 0; i < v.Length; i++)
-                v[i] = vLeft * mRight.column(i);
+                v[i] = vLeft * mRight.Column(i);
             return v;
         }
         public static Vector operator *(Matrix mRight, Vector vLeft)
@@ -117,68 +102,63 @@ namespace SbBMortar.SbB
         }
         public static Matrix operator *(double k, Matrix mRight)
         {
-            Vector[] array = new Vector[mRight.vectors.Count];
-            for (int i = 0; i < mRight.vectors.Count; i++)
-                array[i] = k * ((Vector)mRight.vectors[i]);
+            Vector[] array = new Vector[mRight.Count];
+            for (int i = 0; i < mRight.Count; i++)
+                array[i] = k*(mRight[i]);
             return new Matrix(array);
         }
         public static Matrix operator *(Matrix mRight, double k)
         {
-            Vector[] array = new Vector[mRight.vectors.Count];
-            for (int i = 0; i < mRight.vectors.Count; i++)
-                array[i] = k * ((Vector)mRight.vectors[i]);
+            Vector[] array = new Vector[mRight.Count];
+            for (int i = 0; i < mRight.Count; i++)
+                array[i] = k*(mRight[i]);
             return new Matrix(array);
         }
         public static Matrix operator /(Matrix mRight, double k)
         {
-            Vector[] array = new Vector[mRight.vectors.Count];
-            for (int i = 0; i < mRight.vectors.Count; i++)
-                array[i] = ((Vector)mRight.vectors[i]) / k;
+            Vector[] array = new Vector[mRight.Count];
+            for (int i = 0; i < mRight.Count; i++)
+                array[i] = (mRight[i])/k;
             return new Matrix(array);
         }
+        #endregion
 
-        public Matrix transposed()
+        public Matrix Transposed()
         {
             Matrix m = new Matrix(this.Size.n, this.Size.m);
             for (int i = 0; i < this.Size.n; i++)
-                m[i] = this.column(i);
+                m[i] = this.Column(i);
             return m;
         }
-        public Vector column(int index)
+        public Vector Column(int index)
         {
-            Vector v = new Vector(vectors.Count);
+            Vector v = new Vector(Count);
             for (int i = 0; i < v.Length; i++)
-                v[i] = ((Vector)vectors[i])[index];
+                v[i] = this[i][index];
             return v;
         }
-        public void clear()
+        public void ZeroIn()
         {
-            for (int i = 0; i < vectors.Count; i++)
-                ((Vector)vectors[i]).clear();
+            for (int i = 0; i < this.Count; i++)
+                this[i].ZeroIn();
         }
-        public void erase()
-        {
-            for (int i = 0; i < vectors.Count; i++)
-                ((Vector)vectors[i]).erase();
-            vectors.Clear();
-        }
-        public void removeColumn(int index)
+        public void RemoveColumn(int index)
         {
             if (index < 0 || index > Size.n) throw new ArgumentOutOfRangeException();
             for(int i=0; i<Size.m; i++)
-                ((Vector)vectors[i]).removeAt(index);
+                (this[i]).RemoveAt(index);
         }
-        public void removeRow(int index)
+        public void RemoveRow(int index)
         {
             if (index < 0 || index > Size.m) throw new ArgumentOutOfRangeException();
-            vectors.RemoveAt(index);
+            this.RemoveAt(index);
         }
 
         public override string ToString()
         {
             string str = "";
-            for (int i = 0; i < vectors.Count; i++)
-                str += ((Vector)vectors[i]).ToString() + "\n";
+            for (int i = 0; i < this.Count; i++)
+                str += (this[i]).ToString() + "\n";
             return str;
         }
     }

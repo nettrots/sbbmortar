@@ -30,7 +30,7 @@ namespace SbBMortar.SbB
                 B[0][i] = B[2][i+3] = (this[i+1].Y - this[i+2].Y) / 2;
                 B[1][i+3] = B[2][i] = (this[i+2].X - this[i+1].X) / 2;
             }
-            Matrix local = 1.0/S*B.transposed()*D*B;
+            Matrix local = 1.0/S*B.Transposed()*D*B;
             for (int k = 0; k < 2; k++)
                 for (int l = 0; l < 2; l++)
                     for (int i = 0; i < 3; i++)

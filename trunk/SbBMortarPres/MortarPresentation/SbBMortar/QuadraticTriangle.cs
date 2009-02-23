@@ -62,7 +62,7 @@ namespace SbBMortar.SbB
                     B[0][j] = B[2][6 + j] = dN[j][0];
                     B[1][6 + j] = B[2][j] = dN[j][1];
                 }
-                local += (B.transposed()*D*B)*detJ*gaussPoint.w(i);
+                local += (B.Transposed()*D*B)*detJ*gaussPoint.w(i);
             }
 
             for (int k = 0; k < 2; k++)
