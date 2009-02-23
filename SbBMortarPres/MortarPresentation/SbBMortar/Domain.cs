@@ -381,8 +381,8 @@ namespace SbBMortar.SbB
                     if (matrix[i][j] != 0) break;
                     if (j == matrix.Size.n - 1)
                     {
-                        matrix.removeRow(j);
-                        matrix.removeColumn(j);
+                        matrix.RemoveRow(j);
+                        matrix.RemoveColumn(j);
                         i--;
                         j--;
                     }

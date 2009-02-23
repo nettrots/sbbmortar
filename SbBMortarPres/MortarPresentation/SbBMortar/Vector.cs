@@ -4,66 +4,45 @@ using System.Collections.Generic;
 
 namespace SbBMortar.SbB
 {
-    public class Vector: ICloneable, IEnumerable, IEnumerator
+    public class Vector: List<double>, ICloneable//, IEnumerable, IEnumerator
     {
-        //Змінні класу
-        private List<double> elements = new List<double>();
-        private int pos = -1;
-
-
-        //Конструктори
+        #region Constructors
         public Vector() { }
-        public Vector(int size)
+        public Vector(int size): base(new double[size]) {}
+        public Vector(int size, double element):base(size)
         {
             for (int i = 0; i < size; i++)
-                elements.Add(0.0);
+                this.Add(element);
         }
-        public Vector(int size, double element)
-        {
-            for (int i = 0; i < size; i++)
-                elements.Add(element);
-        }
-        public Vector(double[] elements)
-        {
-            for (int i = 0; i < elements.Length; i++)
-                this.elements.Add(elements[i]);
-        }
+        public Vector(double[] elements): base(elements){}
+        #endregion
 
-
-        //Властивості (Properties)
-        public double this[int index]
-        {
-            get { return (double)elements[index]; }
-            set { elements[index] = value; }
-        }
+        #region Properties
         public int Length
         {
-            get { return elements.Count; }
+            get { return this.Count; }
             set 
             {
-                for (int i = elements.Count; i <= value; i++)
-                    elements.Add(0.0);
-                for (int i = elements.Count; i > value; i--)
-                    elements.RemoveAt(i - 1);
+                for (int i = this.Count; i <= value; i++)
+                    this.Add(0.0);
+                for (int i = this.Count; i > value; i--)
+                    this.RemoveAt(i - 1);
             }
         }
+        #endregion
 
-
-        //Оператори
+        #region Operators
         //унарні
         public static Vector operator +(Vector v)
         {
-            double[] rez = new double[v.Length];
-            for (int i = 0; i < v.Length; i++)
-                rez[i] = (double)v.elements[i];
-            return new Vector(rez);
+            return (Vector) v.Clone();
         }
         public static Vector operator -(Vector v)
         {
-            double[] rez = new double[v.Length];
+            Vector temp = new Vector(v.Length);
             for (int i = 0; i < v.Length; i++)
-                rez[i] = -(double)v.elements[i];
-            return new Vector(rez);
+                temp[i] = -v[i];
+            return temp;
         }
         //бінарні
         public static Vector operator +(Vector vLeft, Vector vRight)
@@ -72,10 +51,10 @@ namespace SbBMortar.SbB
                 throw new Exception("Different length");
             else
             {
-                double[] rez = new double[vLeft.Length];
+                Vector rez = new Vector(vLeft.Length);
                 for (int i = 0; i < vLeft.Length; i++)
-                    rez[i] = (double)vLeft.elements[i] + (double)vRight.elements[i];
-                return new Vector(rez);
+                    rez[i] = vLeft[i] + vRight[i];
+                return rez;
             }
         }
         public static Vector operator -(Vector vLeft, Vector vRight)
@@ -84,10 +63,10 @@ namespace SbBMortar.SbB
                 throw new Exception("Different length");
             else
             {
-                double[] rez = new double[vLeft.Length];
+                Vector rez = new Vector(vLeft.Length);
                 for (int i = 0; i < vLeft.Length; i++)
-                    rez[i] = (double)vLeft.elements[i] - (double)vRight.elements[i];
-                return new Vector(rez);
+                    rez[i] = vLeft[i] - vRight[i];
+                return rez;
             }
         }
         //скалярне множення векторів
@@ -97,173 +76,109 @@ namespace SbBMortar.SbB
                 throw new Exception("Different length");
             else
             {
-                double rez = 0;
+                double rez = 0.0;
                 for (int i = 0; i < vLeft.Length; i++)
-                    rez += (double)vLeft.elements[i] * (double)vRight.elements[i];
+                    rez += vLeft[i]*vRight[i];
                 return rez;
             }
         }
         //множення на константу
         public static Vector operator *(double k, Vector vRight)
         {
-            double[] rez = new double[vRight.Length];
+            Vector rez = new Vector(vRight.Length);
             for (int i = 0; i < vRight.Length; i++)
-                rez[i] = k * (double)vRight.elements[i];
-            return new Vector(rez);
+                rez[i] = k*(vRight[i]);
+            return rez;
         }
         public static Vector operator *(Vector vLeft, double k)
         {
-            double[] rez = new double[vLeft.Length];
+            Vector rez = new Vector(vLeft.Length);
             for (int i = 0; i < vLeft.Length; i++)
-                rez[i] = k * (double)vLeft.elements[i];
-            return new Vector(rez);
+                rez[i] = k * vLeft[i];
+            return rez;
         }
         //ділення на константу
         public static Vector operator /(Vector vLeft, double k)
         {
-            double[] rez = new double[vLeft.Length];
+            Vector rez = new Vector(vLeft.Length);
             for (int i = 0; i < vLeft.Length; i++)
-                rez[i] = (double)vLeft.elements[i] / k;
-            return new Vector(rez);
+                rez[i] = vLeft[i]/k;
+            return rez;
         }
         //оператори відношення
         public static bool operator ==(Vector vLeft, Vector vRight)
         {
             if ((object)vLeft==null || (object)vRight==null) 
-                return (object)vLeft == (object) vRight;
+                return (object)vLeft == (object)vRight;
             if (vLeft.Length != vRight.Length)
                 throw new Exception("Can't be compare");
             for (int i = 0; i < vLeft.Length; i++)
-                if ((double)vLeft.elements[i] != (double)vRight.elements[i])
+                if (vLeft[i] != vRight[i])
                     return false;
             return true;
         }
         public static bool operator !=(Vector vLeft, Vector vRight)
         {
-            /*if ((object)vLeft == null || (object)vRight == null) return true;
-            if (vLeft.Length != vRight.Length)
-                throw new Exception("Can't be compare");*/
             return !(vLeft == vRight);
         }
+        #endregion
 
-
-        //Методи
-        //додавання елемента
-        public void add(double element)
-        {
-            elements.Add(element);
-        }
-        //вставити елемент
-        public void insert(int index, double element)
-        {
-            elements.Insert(index, element);
-        }
-        //видалення елемента з вектора
-        public void remove(double element)
-        {
-            elements.Remove(element);
-        }
-        //вилучення з позиції
-        public void removeAt(int index)
-        {
-            elements.RemoveAt(index);
-        }
+        #region Methods
         //занулення всіх елементів
-        public void clear()
+        public void ZeroIn()
         {
-            for (int i = 0; i < elements.Count; i++)
-                elements[i] = 0;
-        }
-        //стирання(знищення) всіх елементів
-        public void erase()
-        {
-            elements.Clear();
+            for (int i = 0; i < this.Count; i++)
+                this[i] = 0.0;
         }
         //знаходження мінімуму в векторі
-        public double min()
+        public double Min()
         {
-            double m = (double)elements[0];
+            double m = this[0];
             for (int i = 1; i < Length; i++)
-                if (m > (double)elements[i])
-                    m = (double)elements[i];
+                if (m > this[i])
+                    m = this[i];
             return m;
         }
         //знаходження максимуму в векторі
-        public double max()
+        public double Max()
         {
-            double m = (double)elements[0];
+            double m = this[0];
             for (int i = 1; i < Length; i++)
-                if (m < (double)elements[i])
-                    m = (double)elements[i];
+                if (m < this[i])
+                    m = this[i];
             return m;
         }
         // норма
-        public double norm(Norma v)
+        public double Norm(Norma v)
         {
-            if (v==Norma.Maximum)
+            if (v == Norma.Maximum)
             {
-                double m = Math.Abs((double)elements[0]);
-                for (int i = 1; i < elements.Count; i++)
-                      m = m < Math.Abs((double)elements[i]) ? Math.Abs((double)elements[i]) : m;
+                double m = Math.Abs(this[0]);
+                for (int i = 1; i < this.Count; i++)
+                    m = m < Math.Abs(this[i]) ? Math.Abs(this[i]) : m;
                 return m;
             }
 
-            int deg = (int)v;
+            int deg = (int) v;
             double rez = 0;
-            for (int i = 0; i < elements.Count; i++)
-                rez += Math.Pow(Math.Abs((double)elements[i]), deg);
-            rez = Math.Pow(rez, 1 / (double)deg);
+            for (int i = 0; i < this.Count; i++)
+                rez += Math.Pow(Math.Abs(this[i]), deg);
+            rez = Math.Pow(rez, 1.0/deg);
             return rez;
         }
-        public double norm()
+        public double Norm()
         {
-            return norm(Norma.Euclidean);
-        }
-        //визначення чи знаходиться елемент в векторі
-        public bool contains(double element)
-        {
-            return elements.Contains(element);
-        }
-        //знаходження першого входження елемента в вектор
-        public int indexOf(double element)
-        {
-            return elements.IndexOf(element);
-        }
-        //знаходження останнього входження елемента в вектор
-        public int lastIndexOf(double element)
-        {
-            return elements.LastIndexOf(element);
-        }
-        //сортування елементів вектора
-        public void sort()
-        {
-            elements.Sort();
-        }
-        //перевернути вектор
-        public void reverse()
-        {
-            elements.Reverse();
-        }
-        //двійковий пошук
-        public int binarySearch(double element)
-        {
-            return elements.BinarySearch(element);
-        }
-        //переведення у звичайний масив
-        public double[] ToArray()
-        {
-            return elements.ToArray();
+            return Norm(Norma.Euclidean);
         }
         //символьне представлення (перевантажена від System.Object)
         public override string ToString()
         {
             string str = "";
-            for (int i = 0; i < elements.Count; i++)
+            for (int i = 0; i < this.Count; i++)
             {
-                str += elements[i].ToString() + " "; 
+                str += this[i].ToString() + " "; 
             }
             return str;
-
         }
         // порівняння об'єктів
         public override bool Equals(object obj)
@@ -275,36 +190,14 @@ namespace SbBMortar.SbB
         {
             return this.ToString().GetHashCode();
         }
+        #endregion
 
-
-        //інтерфейси
+        #region Interfaces
         //ICloneable
         public object Clone()
         {
-            return new Vector(elements.ToArray());
+            return new Vector(this.ToArray());
         }
-        //IEnumerator
-        public bool MoveNext()
-        {
-            if (pos < elements.Count-1)
-            {
-                pos++;
-                return true;
-            }
-            else return false;
-        }
-        public void Reset()
-        {
-            pos = 0;
-        }
-        public object Current
-        {
-            get { return elements[pos]; }
-        }
-        //IEnumerable
-        public IEnumerator GetEnumerator()
-        {
-            return (IEnumerator)this;
-        }
+        #endregion
     }
 }
