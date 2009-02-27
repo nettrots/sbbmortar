@@ -108,12 +108,13 @@ namespace SbBMortar.SbB
         #region Private
         private void refreshD()
         {
-            double d1 = (1 - poissonRatio) * youngModulus / ((1 + poissonRatio) * (1 - 2 * poissonRatio));
-            D[0][0] = 1;
-            D[0][1] = D[1][0] = poissonRatio / (1 - poissonRatio);
-            D[1][1] = 1;
-            D[2][2] = (1 - 2 * poissonRatio) / (2 * (1 - poissonRatio));
-            d = d1*D;
+            double D1 = (1 - poissonRatio) * youngModulus / ((1 + poissonRatio) * (1 - 2 * poissonRatio));
+            double D2 = D1 * (1 - 2 * poissonRatio) / (2 - 2 * poissonRatio);
+            double D3 = D1 * poissonRatio / (1 - poissonRatio);
+            D[0][0] = D1;
+            D[0][1] = D[1][0] = D3;
+            D[1][1] = D1;
+            D[2][2] = D2;
         }
         #endregion
 

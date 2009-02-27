@@ -14,7 +14,7 @@ namespace MortarPresentation
             double minX = float.MaxValue, maxX = float.MinValue, minY = float.MaxValue, maxY = float.MinValue;
             foreach (Element elem in elems)
             {
-                for (int i = 0; i < elem.N; i++)
+                for (int i = 0; i < elem.NodesCount; i++)
                 {
                     if (minX > elem[i].X) minX = elem[i].X;
                     if (minY > elem[i].Y) minY = elem[i].Y;

@@ -1,3 +1,5 @@
+using System;
+
 namespace SbBMortar.SbB
 {
     public class QuadraticTriangle: Triangle
@@ -69,7 +71,7 @@ namespace SbBMortar.SbB
                 for (int l = 0; l < 2; l++)
                     for (int i = 0; i < 6; i++)
                         for (int j = 0; j < 6; j++)
-                            K[2*this[i].Number + k][2*this[j].Number + l] += local[3*k + i][3*l + j];
+                            K[2*this[i].Number + k][2*this[j].Number + l] += local[6*k + i][6*l + j];
         }
         public override double phi(int i, Vertex v)
         {

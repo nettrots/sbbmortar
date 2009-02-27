@@ -123,6 +123,7 @@ namespace SbBMortar.SbB
         }
         #endregion
 
+        #region Methods
         public Matrix Transposed()
         {
             Matrix m = new Matrix(this.Size.n, this.Size.m);
@@ -161,5 +162,6 @@ namespace SbBMortar.SbB
                 str += (this[i]).ToString() + "\n";
             return str;
         }
+        #endregion
     }
 }
