@@ -105,6 +105,9 @@ namespace SbBMortar.SbB
                     case "QuadraticTriangle":
                         subDomains[i].Triangulation = new QuadraticTriangleTriangulation(p);
                         break;
+                    case "LinearQuadrangle":
+                        subDomains[i].Triangulation = new LinearQuadrangulation(p);
+                        break;
                     default: subDomains[i].Triangulation = new LinialTriangleTriangulation(p);
                         break;
                 }

@@ -104,6 +104,8 @@
     <Compile Include="SbBMortar\Integration.cs" />
     <Compile Include="SbBMortar\LinearEdge.cs" />
     <Compile Include="SbBMortar\LinearMortar.cs" />
+    <Compile Include="SbBMortar\LinearQuadrangle.cs" />
+    <Compile Include="SbBMortar\LinearQuadrangulation.cs" />
     <Compile Include="SbBMortar\LinearTriangle.cs" />
     <Compile Include="SbBMortar\LinialTriangleTriangulation.cs" />
     <Compile Include="SbBMortar\Matrix.cs" />
@@ -181,7 +183,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -193,6 +194,7 @@
     </Compile>
     <Compile Include="SbBDrawer\SbBDrawer.cs" />
     <Compile Include="SbBDrawer\SbBglDrawer.cs" />
+    <Compile Include="SbBMortar\Quadrangle.cs" />
     <Compile Include="SbBMortar\QuadraticEdge.cs" />
     <Compile Include="SbBMortar\QuadraticTriangle.cs" />
     <Compile Include="SbBMortar\QuadraticTriangleTriangulation.cs" />

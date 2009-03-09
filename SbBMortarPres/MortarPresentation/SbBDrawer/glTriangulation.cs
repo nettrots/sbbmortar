@@ -49,8 +49,9 @@ namespace MortarPresentation
             Gl.glColor3d(c.R / 255.0, c.G / 255.0, c.B / 255.0);
             foreach (Element elem in elems)
             {
+                int count = (elem.NodesCount%3 == 0) ? 3 : 4; 
                 Gl.glBegin(Gl.GL_LINE_LOOP);
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Gl.glVertex2d(elem[i].X, elem[i].Y);
                     if (numb) vv += elem[i];
@@ -60,7 +61,7 @@ namespace MortarPresentation
 
                 if (numb)
                 {
-                    vv *= 1/3;
+                    vv *= 1/count;
                     SbBglDrawer.Text(vv, (j++).ToString());
                 }
             }
