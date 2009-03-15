@@ -15,7 +15,7 @@ namespace SbBMortar.SbB
         }
         #endregion
 
-        #region Metyhods
+        #region Methods
         public bool isVertexInTriangle(Vertex v)
         {
 
