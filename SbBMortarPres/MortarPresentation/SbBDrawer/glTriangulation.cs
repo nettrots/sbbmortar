@@ -61,7 +61,7 @@ namespace MortarPresentation
 
                 if (numb)
                 {
-                    vv *= 1/count;
+                    vv *= 1.0/count;
                     SbBglDrawer.Text(vv, (j++).ToString());
                 }
             }
