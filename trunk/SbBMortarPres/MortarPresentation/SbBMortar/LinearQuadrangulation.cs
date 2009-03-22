@@ -18,7 +18,7 @@ namespace SbBMortar.SbB
         #endregion
 
         #region Methods
-        private void writeMainFile()
+        private void writeMainFile(double minAngle, double maxArea)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace SbBMortar.SbB
                 writer.WriteLine("problem.mh2");
                 writer.WriteLine("1.0e-10 0 0");
                 // options
-                writer.WriteLine("4 0 45.0 0.04 0.2 30.0 20.0 0.25 0.4 10 10 4 1 0.01 2 2 0.3");
+                writer.WriteLine("4 0 45.0 0.04 0.2 30.0 20.0 0.25 0.4 10 {0} 4 1 0.01 2 2 0.3", (int)(polygon.S/maxArea));
                 writer.Close();
             }
             catch
@@ -99,11 +99,11 @@ namespace SbBMortar.SbB
                 throw new Exception("Disk error. Could not create file for triangulation.");
             }
         }
-        private void writeFile()
+        private void writeFile(double minAngle, double maxArea)
         {
             string currentCulture = CultureInfo.CurrentCulture.Name;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            writeMainFile();
+            writeMainFile(minAngle, maxArea);
             writeRegionFile();
             writeSurfaceFile();
             Thread.CurrentThread.CurrentCulture = new CultureInfo(currentCulture);
@@ -234,7 +234,7 @@ namespace SbBMortar.SbB
 
         public override void triangulate(double minAngle, double maxArea)
         {
-            writeFile();
+            writeFile(minAngle, maxArea);
             executeTriangle(minAngle, maxArea);
             readFile();
 

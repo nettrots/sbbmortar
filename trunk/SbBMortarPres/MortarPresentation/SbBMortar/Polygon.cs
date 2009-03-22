@@ -65,6 +65,16 @@ namespace SbBMortar.SbB
                 return max;
             }
         }
+        public double S
+        {
+            get
+            {
+                double s = 0.0;
+                for (int i = 0; i < Count; i++)
+                    s += (this[i].X + this[i + 1].X) * (this[i].Y - this[i + 1].Y);
+                return Math.Abs(s) / 2;
+            }
+        }
         #endregion
 
         #region Methods
