@@ -124,11 +124,11 @@ namespace SbBMortar.SbB
             Vertex a = pb - pa;
             Vertex b = p - pa;
             double sa = a.X * b.Y - b.X * a.Y;
-            if (sa > 0.0)
+            if (sa > 10e-10)
                 return VertexPos.LEFT;
-            if (sa < 0)
+            if (sa < -10e-10)
                 return VertexPos.RIGHT;
-            if ((a.X * b.X < 0.0) || (a.Y * b.Y < 0.0))
+            if ((a.X * b.X < -10e-10) || (a.Y * b.Y < -10e-10))
                 return VertexPos.BEHIND;
             if (a.Length < b.Length)
                 return VertexPos.BEYOND;
