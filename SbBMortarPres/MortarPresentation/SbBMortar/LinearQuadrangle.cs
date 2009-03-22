@@ -7,7 +7,7 @@ namespace SbBMortar.SbB
     public class LinearQuadrangle: Quadrangle
     {
         #region Fields
-        private const int gaussOrger = 2;
+        private const int gaussOrger = 4;
         private static double[] gaussNodes;
         private static double[] gaussWeight;
         private Matrix isoCoord = new Matrix(new double[4][]
@@ -99,7 +99,7 @@ namespace SbBMortar.SbB
                         A2[k][1] = this[k].Y;
                     }
 
-                    Matrix J = A1*A2/4.0;
+                    Matrix J = A1*A2;
                     double detJ = J[0][0]*J[1][1] - J[1][0]*J[0][1];
                     Matrix J_1 = new Matrix(new double[2][]{new double[]{J[1][1], -J[0][1]},
                                                             new double[]{-J[1][0], J[0][0]}});
