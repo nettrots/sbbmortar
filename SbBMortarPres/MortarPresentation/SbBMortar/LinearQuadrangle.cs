@@ -17,6 +17,8 @@ namespace SbBMortar.SbB
                                                      new double[]{1.0, 1.0},
                                                      new double[]{-1.0, 1.0}
                                                  });
+
+        private Matrix A;
         #endregion
 
         #region Constructors
@@ -75,7 +77,40 @@ namespace SbBMortar.SbB
             dN[1] = isoCoord[i][1]*(1 + isoCoord[i][0]*ksi)/4.0;
             return dN;
         }
+        private void inverce()
+        {
+            double x0 = this[0].X, y0 = this[0].Y;
+            double x1 = this[1].X, y1 = this[1].Y;
+            double x2 = this[2].X, y2 = this[2].Y;
+            double x3 = this[3].X, y3 = this[3].Y;
+            double detA = x1*y2*x3*y3 - x1*x2*y2*y3 - x2*y1*x3*y3 + x2*x1*y1*y3 + x3*y1*x2*y2 - x3*x1*y1*y2 -
+                          x0*y2*x3*y3 + x0*x2*y2*y3 + x2*y0*x3*y3 - x2*x0*y0*y3 - x3*y0*x2*y2 + x3*x0*y0*y2 +
+                          x0*y1*x3*y3 - x0*x1*y1*y3 - x1*y0*x3*y3 + x1*x0*y0*y3 + x3*y0*x1*y1 - x3*x0*y0*y1 -
+                          x0*y1*x2*y2 + x0*x1*y1*y2 + x1*y0*x2*y2 - x1*x0*y0*y2 - x2*y0*x1*y1 + x2*x0*y0*y1;
+            A = new Matrix(4,4);
 
+            A[0][0] = x1*y2*x3*y3 - x1*x2*y2*y3 - x2*y1*x3*y3 + x2*x1*y1*y3 + x3*y1*x2*y2 - x3*x1*y1*y2;
+            A[0][1] = -x0*y2*x3*y3 + x0*x2*y2*y3 + x2*y0*x3*y3 - x2*x0*y0*y3 - x3*y0*x2*y2 + x3*x0*y0*y2;
+            A[0][2] = x0*y1*x3*y3 - x0*x1*y1*y3 - x1*y0*x3*y3 + x1*x0*y0*y3 + x3*y0*x1*y1 - x3*x0*y0*y1;
+            A[0][3] = -x0*y1*x2*y2 + x0*x1*y1*y2 + x1*y0*x2*y2 - x1*x0*y0*y2 - x2*y0*x1*y1 + x2*x0*y0*y1;
+
+            A[1][0] = -y2*x3*y3 + x2*y2*y3 + y1*x3*y3 - x1*y1*y3 - y1*x2*y2 + x1*y1*y2;
+            A[1][1] = y2*x3*y3 - x2*y2*y3 - y0*x3*y3 + x0*y0*y3 + y0*x2*y2 - x0*y0*y2;
+            A[1][2] = -y1*x3*y3 + x1*y1*y3 + y0*x3*y3 - x0*y0*y3 - y0*x1*y1 + x0*y0*y1;
+            A[1][3] = y1*x2*y2 - x1*y1*y2 - y0*x2*y2 + x0*y0*y2 + y0*x1*y1 - x0*y0*y1;
+
+            A[2][0] = x2*x3*y3 - x2*y2*x3 - x1*x3*y3 + x1*y1*x3 + x1*x2*y2 - x1*y1*x2;
+            A[2][1] = -x2*x3*y3 + x2*y2*x3 + x0*x3*y3 - x0*y0*x3 - x0*x2*y2 + x0*y0*x2;
+            A[2][2] = x1*x3*y3 - x1*y1*x3 - x0*x3*y3 + x0*y0*x3 + x0*x1*y1 - x0*y0*x1;
+            A[2][3] = -x1*x2*y2 + x1*y1*x2 + x0*x2*y2 - x0*y0*x2 - x0*x1*y1 + x0*y0*x1;
+
+            A[3][0] = -x2*y3 + y2*x3 + x1*y3 - y1*x3 - x1*y2 + y1*x2;
+            A[3][1] = x2*y3 - y2*x3 - x0*y3 + y0*x3 + x0*y2 - y0*x2;
+            A[3][2] = -x1*y3 + y1*x3 + x0*y3 - y0*x3 - x0*y1 + y0*x1;
+            A[3][3] = x1*y2 - y1*x2 - x0*y2 + y0*x2 + x0*y1 - y0*x1;
+
+            A /= detA;
+        }
 
         public override void FEM(Matrix K, Matrix D)
         {
@@ -124,6 +159,10 @@ namespace SbBMortar.SbB
 
         public override double phi(int i, Vertex v)
         {
+            if (A == null) inverce();
+
+            Vector alpha = A.Column(i);
+            return alpha[0] + alpha[1]*v.X + alpha[2]*v.Y + alpha[3]*v.X*v.Y;
             Polygon p = new Polygon(nodes);
             double ksi = -1 + 2*(v.X - p.MinVertex.X)/(p.MaxVertex.X - p.MinVertex.X);
             double eta = -1 + 2 * (v.Y - p.MinVertex.Y) / (p.MaxVertex.Y - p.MinVertex.Y);
