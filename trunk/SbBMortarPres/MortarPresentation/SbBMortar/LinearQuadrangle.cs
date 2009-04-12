@@ -7,7 +7,7 @@ namespace SbBMortar.SbB
     public class LinearQuadrangle: Quadrangle
     {
         #region Fields
-        private const int gaussOrger = 4;
+        private const int gaussOrger = 2;
         private static double[] gaussNodes;
         private static double[] gaussWeight;
         private Matrix isoCoord = new Matrix(new double[4][]
@@ -163,17 +163,17 @@ namespace SbBMortar.SbB
 
             Vector alpha = A.Column(i);
             return alpha[0] + alpha[1]*v.X + alpha[2]*v.Y + alpha[3]*v.X*v.Y;
-            Polygon p = new Polygon(nodes);
-            double ksi = -1 + 2*(v.X - p.MinVertex.X)/(p.MaxVertex.X - p.MinVertex.X);
-            double eta = -1 + 2 * (v.Y - p.MinVertex.Y) / (p.MaxVertex.Y - p.MinVertex.Y);
-            return (1 + isoCoord[i][0]*ksi)*(1 + isoCoord[i][1]*eta)/4.0;
-            /*Quadrangle temp = new LinearQuadrangle(v, this[i + 1], this[i + 2], this[i + 3]);
-            return temp.S/S;*/
         }
 
         public override double[] dphi(int i, Vertex v)
         {
-            throw new NotImplementedException();
+            if (A == null) inverce();
+
+            Vector alpha = A.Column(i);
+            double[] dphixy = new double[2];
+            dphixy[0] = alpha[1] + alpha[3]*v.Y;
+            dphixy[1] = alpha[2] + alpha[3]*v.Y;
+            return dphixy;
         }
         #endregion
     }

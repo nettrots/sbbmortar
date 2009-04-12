@@ -8,7 +8,7 @@ namespace SbBMortar.SbB
 {
     public class QuadraticTriangleTriangulation: Triangulation
     {
-                #region Constructors
+        #region Constructors
         public QuadraticTriangleTriangulation(Polygon polygon)
         {
             this.polygon = polygon;
@@ -144,7 +144,7 @@ namespace SbBMortar.SbB
                     FEMEdge e = new QuadraticEdge(temp[i][j], temp[i][j + 1]);
                     int k = vertexes.IndexOf(e[2]);
                     if (k >= 0) e[2] = vertexes[k];
-                    else vertexes.Add(e[2]);
+                    //else vertexes.Add(e[2]);
                     boundaries[i].Add(e);
                 }
             }

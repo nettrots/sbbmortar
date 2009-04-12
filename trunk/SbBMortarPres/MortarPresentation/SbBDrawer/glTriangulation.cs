@@ -40,7 +40,6 @@ namespace MortarPresentation
             if (Hide) return;
             
             int j = 0;
-            Vertex vv = new Vertex();
             bool numb = (bool) Props["Numbers"];
             Color c = (Color) Props["Main Color"];
             Gl.glDisable(Gl.GL_LINE_STIPPLE);
@@ -49,6 +48,7 @@ namespace MortarPresentation
             Gl.glColor3d(c.R / 255.0, c.G / 255.0, c.B / 255.0);
             foreach (Element elem in elems)
             {
+                Vertex vv = new Vertex();
                 int count = (elem.NodesCount%3 == 0) ? 3 : 4; 
                 Gl.glBegin(Gl.GL_LINE_LOOP);
                 for (int i = 0; i < count; i++)
@@ -59,10 +59,25 @@ namespace MortarPresentation
                 Gl.glEnd();
                 Gl.glFlush();
 
+                if (false)
+                {
+                    Gl.glBegin(Gl.GL_POINTS);
+                    for (int i = 0; i < elem.NodesCount; i++)
+                    {
+                        Gl.glVertex2d(elem[i].X, elem[i].Y);
+                        SbBglDrawer.Text(elem[i], (elem[i].Number).ToString());
+                    }
+                    Gl.glEnd();
+                    Gl.glFlush();
+                }
+
+
                 if (numb)
                 {
                     vv *= 1.0/count;
                     SbBglDrawer.Text(vv, (j++).ToString());
+                    for (int i = 0; i < elem.NodesCount; i++)
+                        SbBglDrawer.Text(elem[i], (elem[i].Number).ToString());
                 }
             }
         }

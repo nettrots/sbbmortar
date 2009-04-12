@@ -54,16 +54,22 @@ namespace SbBMortar.SbB
                     int k = Mortars[j].Polygon.isEdgeOnPolygon(e);
                     if (k >= 0)
                     {
+                        List<Vertex> localVertexes = new List<Vertex>();
                         foreach (FEMEdge femedge in Mortars[j].Boundaries[k])
                         {
                             for (int m = 0; m < femedge.NodesCount; m++)
-                                if (!vertexes.Contains(femedge[m])) vertexes.Add(femedge[m]);
+                                if (!localVertexes.Contains(femedge[m])) localVertexes.Add(femedge[m]);
                         }
+                        localVertexes.Sort();
+                        if (localVertexes[0]!=e.A) localVertexes.Reverse();
+                        for (int m = 0; m < localVertexes.Count-1; m++)
+                            vertexes.Add(localVertexes[m]);
                         break;
                     }
                 }
             }
-            vertexes.Sort();
+            vertexes.Add(nodes[nodes.Length-1]);
+            
         }
         public Mortar createMortar(int femnodescount)
         {

@@ -145,7 +145,8 @@ namespace MortarPresentation
 
         void doit()
         {
-            domain.mesh();
+            if (domain.Elements == null)
+                domain.mesh();
             domain.solve();
         }
         private void solveToolStripMenuItem_Click(object sender, EventArgs e)

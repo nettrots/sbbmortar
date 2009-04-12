@@ -230,6 +230,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MortarPresentation";
             this.Text = "Mortar Presentation";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

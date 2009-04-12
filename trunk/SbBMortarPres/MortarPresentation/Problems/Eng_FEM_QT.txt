@@ -1,0 +1,14 @@
+6
+-1 -1 1 -1 1 0 0 0 0 1 -1 1
+Static 0 0
+Kinematic
+Static 0 0
+Static 0 0
+Kinematic
+Static -1 0
+1
+6
+-1 -1 1 -1 1 0 0 0 0 1 -1 1
+21000 0.3
+QuadraticTriangle 0.05 20
+0

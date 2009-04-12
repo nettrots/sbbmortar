@@ -41,10 +41,10 @@ namespace MortarPresentation.Dialogs
                 case "Переміщення":
                     funcList.Items.AddRange(new string[]{"U","V"});
                     break;
-                case "Напруження":
+                case "Деформації":
                     funcList.Items.AddRange(new string[] { "Exx", "2Exy","Eyy" });
                     break;
-                case "Деформації":
+                case "Напруження":
                     funcList.Items.AddRange(new string[] { "Sxx", "Sxy", "Syy", });
                     break;
                 
