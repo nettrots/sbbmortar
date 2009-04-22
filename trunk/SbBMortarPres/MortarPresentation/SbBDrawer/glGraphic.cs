@@ -87,7 +87,17 @@ namespace MortarPresentation
                       Gl.glVertex2d(list[i].X, list[i].Y);
                     }
                     Gl.glEnd();
-                  
+
+                    if (false)
+                    {
+                        Gl.glLineWidth(2f);
+                        Gl.glBegin(Gl.GL_POINTS);
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            Gl.glVertex2d(list[i].X, list[i].Y);
+                        }
+                        Gl.glEnd();
+                    }
                 }
 
              
