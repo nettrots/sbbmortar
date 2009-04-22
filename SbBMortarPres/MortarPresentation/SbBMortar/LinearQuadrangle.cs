@@ -172,7 +172,7 @@ namespace SbBMortar.SbB
             Vector alpha = A.Column(i);
             double[] dphixy = new double[2];
             dphixy[0] = alpha[1] + alpha[3]*v.Y;
-            dphixy[1] = alpha[2] + alpha[3]*v.Y;
+            dphixy[1] = alpha[2] + alpha[3]*v.X;
             return dphixy;
         }
         #endregion

@@ -492,6 +492,7 @@ namespace SbBMortar.SbB
                     for (int i = 0; i < element.NodesCount; i++)
                         v[i] = V(element[i].Number);
                     eyy += element.Eyy(vertex, v);
+                    //return eyy;
                     count++;
                 }
             return eyy/count;
@@ -520,6 +521,7 @@ namespace SbBMortar.SbB
                         v[i] = V(element[i].Number);
                     }
                     exy += element.Exy(vertex, u, v);
+                    //return exy;
                     count++;
                 }
             return exy/count;
@@ -579,6 +581,7 @@ namespace SbBMortar.SbB
                             v[i] = V(element[i].Number);
                         }
                         syy += element.Syy(vertex, u, v, subDomain.D);
+                        //return syy;
                         count++;
                     }
             return syy / count;
@@ -608,6 +611,7 @@ namespace SbBMortar.SbB
                             v[i] = V(element[i].Number);
                         }
                         sxy += element.Sxy(vertex, u, v, subDomain.D);
+                        //return sxy;
                         count++;
                     }
             return sxy / count;

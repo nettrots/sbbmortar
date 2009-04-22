@@ -22,6 +22,10 @@ namespace SbBMortar.SbB
         #region Methods
         public bool isVertexInQuadrangle(Vertex v)
         {
+            VertexPos possition = v.classify(nodes[3], nodes[0]);
+            for (int i = 0; i < 3; i++)
+                if (v.classify(nodes[i], nodes[i + 1]) != possition) return false;
+            return true;
             if (isVertexOnQuadrangle(v)) return false;
             Polygon p = new Polygon(new Vertex[] { nodes[0], nodes[1], nodes[2], nodes[3] });
             return p.isVertexInPolygon(v);
