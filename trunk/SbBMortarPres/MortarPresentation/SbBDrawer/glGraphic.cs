@@ -25,9 +25,12 @@ namespace MortarPresentation
                 Color.FromArgb(255,0,255),
     };
 
+        private List<int> dofs;
+
         public glGraphic()
         {
             funcTables = new ElementsList<List<Vertex>[]>();
+            dofs = new List<int>();
             funcTables.onListChage += refreshBox;
         }
 
@@ -41,6 +44,11 @@ namespace MortarPresentation
         {
             get { return names; }
             set { names = value; }
+        }
+
+        public List<int> DoFs
+        {
+            get { return dofs; }
         }
 
 
@@ -117,7 +125,7 @@ namespace MortarPresentation
                 Font f = SbBglDrawer.Font;
                 
                 SbBglDrawer.Font =new Font(f.FontFamily,f.Size,FontStyle.Bold); //new Font("Arial", 10, FontStyle.Bold);
-                SbBglDrawer.Text(x, 1.01 * y, names[j]);
+                SbBglDrawer.Text(x, 1.01 * y, names[j]+", DoFs: "+dofs[j].ToString());
                 SbBglDrawer.Font = f;
                 j++;
                 if (j == 10) j = 0;
