@@ -124,6 +124,7 @@ namespace MortarPresentation.Dialogs
             int n, n1 = glGraphic.FuncTables.Count; ;
             
             glGraphic.FuncTables.Add(rez);
+            glGraphic.DoFs.Add(domain.Result.Length);
 
             if (glGraphic.FuncTables == null)throw new Exception("Some problems(no vertexex added to draw)");
 
@@ -153,6 +154,7 @@ namespace MortarPresentation.Dialogs
             {
                 glGraphic.FuncTables.RemoveAt(listBox1.SelectedIndex);
                 glGraphic.Names.RemoveAt(listBox1.SelectedIndex);
+                glGraphic.DoFs.RemoveAt(listBox1.SelectedIndex);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
 
                 

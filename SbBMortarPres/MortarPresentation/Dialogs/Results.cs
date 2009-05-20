@@ -55,7 +55,7 @@ namespace MortarFEM
 
 
 
-            foreach (Vertex v in domain.Vertexes)
+            /*foreach (Vertex v in domain.Vertexes)
             {
                 if (!double.IsNaN(xx))
                     if (!(v.X == xx))
@@ -80,6 +80,65 @@ namespace MortarFEM
                             exx.ToString("e4"), eyy.ToString("e4"), exy.ToString("e4"), sxx.ToString("e4"),
                             syy.ToString("e4"), sxy.ToString("e4"));
                 #endregion
+            }*/
+
+            if (dg.RowCount == 0)
+            {
+                if (!double.IsNaN(xx))
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        double ystep = domain.Polygon.MinVertex.Y +
+                                   (domain.Polygon.MaxVertex.Y - domain.Polygon.MinVertex.Y)*i/4;
+                        Vertex v = new Vertex(xx, ystep);
+
+                        #region AddData
+
+                        double x = v.X, y = v.Y, exx = 0.0, eyy = 0.0, exy = 0.0, sxx = 0.0, syy = 0.0, sxy = 0.0;
+                        double[] t;
+                        int n1 = 0, n2 = 0, n3 = 0, n11 = 0, n12 = 0, n13 = 0;
+
+                        exx = domain.Exx(v);
+                        eyy = domain.Eyy(v);
+                        exy = domain.Exy(v);
+                        sxx = domain.Sxx(v);
+                        syy = domain.Syy(v);
+                        sxy = domain.Sxy(v);
+
+                        dg.Rows.Add(v.Number, v.X, v.Y, domain.U(v).ToString("e4"), domain.V(v).ToString("e4"),
+                                    exx.ToString("e4"), eyy.ToString("e4"), exy.ToString("e4"), sxx.ToString("e4"),
+                                    syy.ToString("e4"), sxy.ToString("e4"));
+                        #endregion
+                    }
+                }
+
+                if (!double.IsNaN(yy))
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        double xstep = domain.Polygon.MinVertex.X +
+                                   (domain.Polygon.MaxVertex.X - domain.Polygon.MinVertex.X) * i / 4;
+                        Vertex v = new Vertex(xstep, yy);
+
+                        #region AddData
+
+                        double x = v.X, y = v.Y, exx = 0.0, eyy = 0.0, exy = 0.0, sxx = 0.0, syy = 0.0, sxy = 0.0;
+                        double[] t;
+                        int n1 = 0, n2 = 0, n3 = 0, n11 = 0, n12 = 0, n13 = 0;
+
+                        exx = domain.Exx(v);
+                        eyy = domain.Eyy(v);
+                        exy = domain.Exy(v);
+                        sxx = domain.Sxx(v);
+                        syy = domain.Syy(v);
+                        sxy = domain.Sxy(v);
+
+                        dg.Rows.Add(v.Number, v.X, v.Y, domain.U(v).ToString("e4"), domain.V(v).ToString("e4"),
+                                    exx.ToString("e4"), eyy.ToString("e4"), exy.ToString("e4"), sxx.ToString("e4"),
+                                    syy.ToString("e4"), sxy.ToString("e4"));
+                        #endregion
+                    }
+                }
             }
         }
         private double xx = double.NaN, yy = double.NaN;
